@@ -1,7 +1,7 @@
 [build]
-  base    = "client"        # This points to your 'client' folder where the frontend code is located
-  publish = "client/build"  # This is the directory where your build files will be after the build step
-  command = "npm run build" # The command to build your project
+  base    = "client"        
+  publish = "build"        
+  command = "npm run build"
 
 [[redirects]]
   from = "/*"

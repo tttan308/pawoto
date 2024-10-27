@@ -1,3 +1,4 @@
+import Footer from "components/Footer";
 import Nav from "components/Nav";
 import Spinner from "components/Spinner";
 import { Helmet } from "react-helmet-async";
@@ -54,20 +55,7 @@ const Layout = ({ children, title, loading }) => {
             <main className="h-full">{children}</main>
           </div>
         )}
-
-        <footer className="mt-auto flex justify-center py-2">
-          <p className="text-sm text-gray-600 sm:ml-4 sm:pl-4 sm:py-2 sm:mt-0 mt-4">
-            &copy; {new Date().getFullYear()} PERN Store —
-            <a
-              href="https://github.com/dhatguy"
-              className="text-gray-500 ml-1"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              @dhatGuy
-            </a>
-          </p>
-        </footer>
+        <Footer />
       </div>
     </>
   );

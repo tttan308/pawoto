@@ -1,100 +1,150 @@
-import { Badge, Button, Dropdown, DropdownItem, Transition } from "@windmill/react-ui";
+import React, { useState } from "react";
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Badge,
+  Menu,
+  MenuItem,
+  Typography,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+  useMediaQuery,
+  Button,
+} from "@mui/material";
+import { ShoppingCart, AccountCircle, Logout, Login, Menu as MenuIcon } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 import { useCart } from "context/CartContext";
 import { useUser } from "context/UserContext";
-import { useState } from "react";
-import { LogOut, ShoppingCart, User } from "react-feather";
-import { Link } from "react-router-dom";
+import { useTheme } from "@mui/material/styles";
 
 const Nav = () => {
   const { cartTotal } = useCart();
   const { isLoggedIn, userData, logout } = useUser();
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
+  const handleMenuOpen = (event) => setAnchorEl(event.currentTarget);
+  const handleMenuClose = () => setAnchorEl(null);
+  const toggleDrawer = (open) => () => setDrawerOpen(open);
 
   return (
-    <nav className="flex items-center justify-between px-2 lg:px-36 py-2 shadow-lg fixed w-full bg-white top-0 z-10">
-      <Link to="/" className="text-gray-700 text-2xl font-bold dark:text-gray-400">
-        <h1>Pawoto</h1>
-      </Link>
-      <ul className="flex space-x-4">
-        {!isLoggedIn && (
-          <>
-            <li>
-              <Link to="/login">
-                <Button layout="link">
-                  <span>Đăng nhập</span>
-                </Button>
-              </Link>
-            </li>
-            <li>
-              <Link to="/cart">
-                <Button layout="link">
-                  <span className="lg:block hidden">Giỏ hàng</span>
-                  <ShoppingCart className="lg:hidden" />
-                  <Badge className="ml-2" type="danger">
-                    {cartTotal}
-                  </Badge>{" "}
-                </Button>
-              </Link>
-            </li>
-          </>
+    <AppBar position="fixed" color="default" sx={{ boxShadow: 1 }}>
+      <Toolbar sx={{ justifyContent: "space-between" }}>
+        <Typography
+          variant="h6"
+          component={Link}
+          to="/"
+          color="inherit"
+          sx={{ textDecoration: "none" }}
+        >
+          Pawoto
+        </Typography>
+
+        {/* Center Navbar Section - Visible on Desktop */}
+        {!isMobile && (
+          <div>
+            <Button component={Link} to="/about" color="inherit">
+              Về chúng tôi
+            </Button>
+            <Button component={Link} to="/products" color="inherit">
+              Sản phẩm
+            </Button>
+            <Button component={Link} to="/emotion-station" color="inherit">
+              Checkin cảm xúc
+            </Button>
+          </div>
         )}
 
-        {isLoggedIn && (
-          <>
-            <li>
-              <Link to="/cart">
-                <Button layout="link">
-                  <span className="lg:block hidden">Cart</span>
-                  <ShoppingCart className="lg:hidden" />
-                  <Badge className="ml-2" type="danger">
-                    {cartTotal}
-                  </Badge>{" "}
-                </Button>
-              </Link>
-            </li>
-            <li className="relative">
-              <Button layout="link" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-                <span className="lg:block hidden">Account</span>
-                <User className="lg:hidden" />
-              </Button>
-              <Transition
-                show={isDropdownOpen}
-                enter="transition ease-out duration-150 transform"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="transition ease-in duration-75 transform"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
+        {/* Right-side Items */}
+        <div>
+          {!isLoggedIn ? (
+            <>
+              <IconButton component={Link} to="/login" color="primary">
+                <Login />
+              </IconButton>
+              <IconButton component={Link} to="/cart" color="inherit">
+                <Badge badgeContent={cartTotal} color="error">
+                  <ShoppingCart />
+                </Badge>
+              </IconButton>
+            </>
+          ) : (
+            <>
+              <IconButton component={Link} to="/cart" color="inherit">
+                <Badge badgeContent={cartTotal} color="error">
+                  <ShoppingCart />
+                </Badge>
+              </IconButton>
+              <IconButton color="inherit" onClick={handleMenuOpen}>
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleMenuClose}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
               >
-                <Dropdown align="right" isOpen={isDropdownOpen} className="z-10">
-                  <DropdownItem className="cursor-not-allowed text-gray-400 border-b flex flex-col items-start justify-start">
-                    <p className="self-start">{userData?.fullname?.split(" ").join(" ")}</p>
-                    <p className="self-start">@{userData?.username}</p>
-                  </DropdownItem>
-                  <DropdownItem tag="a">
-                    <Link className="w-full" to="/profile">
-                      Profile
-                    </Link>
-                  </DropdownItem>
-                  <DropdownItem tag="a">
-                    <Link className="w-full" to="/orders">
-                      Orders
-                    </Link>
-                  </DropdownItem>
-                  <DropdownItem tag="a" className="border-t">
-                    <Link className="w-full" onClick={() => logout()} to="/login">
-                      <Button iconRight={LogOut} block>
-                        Logout
-                      </Button>
-                    </Link>
-                  </DropdownItem>
-                </Dropdown>
-              </Transition>
-            </li>
-          </>
-        )}
-      </ul>
-    </nav>
+                <MenuItem disabled>{userData?.fullname}</MenuItem>
+                <MenuItem component={Link} to="/profile" onClick={handleMenuClose}>
+                  Profile
+                </MenuItem>
+                <MenuItem component={Link} to="/orders" onClick={handleMenuClose}>
+                  Orders
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    logout();
+                    handleMenuClose();
+                  }}
+                >
+                  <Logout fontSize="small" sx={{ mr: 1 }} /> Logout
+                </MenuItem>
+              </Menu>
+            </>
+          )}
+
+          {/* Drawer Toggle for Mobile Menu */}
+          {isMobile && (
+            <IconButton
+              edge="end"
+              color="inherit"
+              aria-label="menu"
+              onClick={toggleDrawer(true)}
+              sx={{ ml: 1 }}
+            >
+              <MenuIcon />
+            </IconButton>
+          )}
+        </div>
+
+        {/* Drawer for Mobile Menu */}
+        <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer(false)}>
+          <List>
+            <ListItem button component={Link} to="/about" onClick={toggleDrawer(false)}>
+              <ListItemText primary="Về chúng tôi" />
+            </ListItem>
+            <ListItem button component={Link} to="/products" onClick={toggleDrawer(false)}>
+              <ListItemText primary="Sản phẩm" />
+            </ListItem>
+            <ListItem button component={Link} to="/emotion-station" onClick={toggleDrawer(false)}>
+              <ListItemText primary="Trạm cảm xúc" />
+            </ListItem>
+          </List>
+        </Drawer>
+      </Toolbar>
+    </AppBar>
   );
 };
 

@@ -75,7 +75,7 @@ const Footer = () => {
           {/* Company Information */}
           <Grid item xs={12} sm={6} md={3}>
             <Box sx={{ textAlign: { xs: "center", md: "left" } }}>
-              <Box component="img" src="logo.svg" alt="Company Logo" sx={{ mb: 2, width: "100%", maxWidth: 200 }} />
+              <Box component="img" src="logo.svg" alt="Company Logo" sx={{ mb: 2, width: "100%", maxWidth: 100 }} />
               <Typography variant="body1" fontWeight="bold">
                 CÔNG TY TRÁCH NHIỆM HỮU HẠN PAWOTO
               </Typography>
@@ -103,7 +103,7 @@ const Footer = () => {
                   <Facebook fontSize="medium" />
                 </MuiLink>
                 <MuiLink href="https://www.tiktok.com/@pawoto.vietnam?_t=8qhhe7e0Hm3&_r=1" target="_blank" color="inherit" aria-label="TikTok">
-                  <img src="path/to/tiktok-icon.svg" alt="TikTok" width="24" height="24" />
+                  <img src="tiktok.png" alt="TikTok" width="24" height="24" />
                 </MuiLink>
               </Box>
             </Box>

@@ -55,7 +55,7 @@ const Nav = () => {
               Sản phẩm
             </Button>
             <Button component={Link} to="/emotion-station" color="inherit">
-              Checkin cảm xúc
+              Trạm cảm xúc
             </Button>
           </div>
         )}

@@ -24,9 +24,9 @@ const Cart = () => {
         <h1 className="my-10 text-center text-4xl font-semibold">Shopping Cart</h1>
         <div className="h-full flex flex-col justify-center items-center">
           <ShoppingCart size={150} />
-          <p>Cart is empty</p>
-          <Button tag={Link} to="/">
-            Continue shopping
+          <p>Giỏ hàng trống</p>
+          <Button tag={Link} to="/products">
+            Tiếp tục mua hàng
           </Button>
         </div>
       </Layout>
@@ -35,16 +35,16 @@ const Cart = () => {
 
   return (
     <Layout loading={isLoading || cartData === undefined}>
-      <h1 className="my-10 text-center text-4xl font-semibold">Shopping Cart</h1>
+      <h1 className="my-10 text-center text-4xl font-semibold">Giỏ hàng</h1>
       <TableContainer>
         <Table>
           <TableHeader>
             <TableRow>
-              <TableCell>Product</TableCell>
-              <TableCell>Amount</TableCell>
-              <TableCell>Quantity</TableCell>
-              <TableCell>Total</TableCell>
-              <TableCell>Remove</TableCell>
+              <TableCell>Sản phẩm</TableCell>
+              <TableCell>Giá</TableCell>
+              <TableCell>Số lượng</TableCell>
+              <TableCell>Tổng tiền</TableCell>
+              <TableCell>Xóa khỏi giỏ hàng</TableCell>
             </TableRow>
           </TableHeader>
           <TableBody>

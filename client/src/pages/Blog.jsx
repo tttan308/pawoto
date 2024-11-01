@@ -24,7 +24,7 @@ const GradientTitle = styled("span")({
 
 const SectionBox = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(4),
-  margin: theme.spacing(4, 0), 
+  margin: theme.spacing(4, 0),
   backgroundColor: "#FFF8E1",
   borderRadius: "8px",
   boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
@@ -44,7 +44,7 @@ const ImageBox = styled(Box)({
 
 const BlogPage = () => {
   return (
-    <Layout title="Giải Cứu Những Người Bạn Cũ">
+    <Layout title="Blog">
       <Container maxWidth="md">
         <SectionBox>
           <Typography variant="h4" align="center" gutterBottom>

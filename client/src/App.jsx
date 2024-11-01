@@ -13,8 +13,10 @@ import {
   ProductList,
   Register,
   ResetPassword,
-  Home,
+  Pawoto,
   EmotionStation,
+  Home,
+  Blog
 } from "pages";
 import { Suspense } from "react";
 import { Toaster } from "react-hot-toast";
@@ -40,15 +42,17 @@ function App() {
           <Route path="/orders/:id/" element={<OrderDetails />} />
         </Route>
 
-        <Route path="/about" element={<Home />} />
+        <Route path="/pawoto" element={<Pawoto />} />
         <Route path="/emotion-station" element={<EmotionStation />} />
         <Route path="/signup" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/about" element={<Home />} />
         <Route index element={<Home />} />
         <Route path="/products" element={<ProductList />} />
         <Route path="/products/:slug/" element={<ProductDetails />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/blog" element={<Blog />} />
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </Suspense>

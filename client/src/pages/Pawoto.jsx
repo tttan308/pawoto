@@ -2,8 +2,7 @@ import React from "react";
 import { Container, Typography, Box, Paper } from "@mui/material";
 import { styled, keyframes } from "@mui/system";
 import Layout from "layout/Layout";
-import Typical from "react-typical";
-import Fade from "react-reveal/Fade";
+import Typewriter from "typewriter-effect";
 
 const ImageBox = styled(Box)({
   display: "flex",
@@ -71,14 +70,14 @@ const gradientAnimation = keyframes`
   }
 `;
 
-const GradientText = styled("span")({
-  background: "linear-gradient(90deg, rgba(255,183,77,1), rgba(255,138,101,1), rgba(255,183,77,1))",
+const GradientTypography = styled(Typography)({
+  background: "linear-gradient(90deg, rgba(255,138,0,1), rgba(230,81,0,1), rgba(255,138,0,1))",
   backgroundSize: "200% 200%",
   WebkitBackgroundClip: "text",
   WebkitTextFillColor: "transparent",
   animation: `${gradientAnimation} 3s ease infinite`,
   fontWeight: "bold",
-  fontSize: "3rem",
+  textAlign: "center",
 });
 
 const Pawoto = () => {
@@ -89,15 +88,18 @@ const Pawoto = () => {
           <ImageBox>
             <Image src="image1.png" alt="Ảnh Logo sặc sỡ" />
           </ImageBox>
-          <Typography variant="h5" align="center" gutterBottom sx={{ color: "transparent" }}>
-            <GradientText>
-              <Typical
-                steps={["PAWOTO - Những mảnh vải biết nói?", 2000]}
-                loop={1}
-                wrapper="span"
-              />
-            </GradientText>
-          </Typography>
+          <GradientTypography variant="h5" gutterBottom>
+            <Typewriter
+              options={{
+                strings: ["Pawoto - Những mảnh vải biết nói?"],
+                autoStart: true,
+                loop: true,
+                typeSpeed: 20,
+                deleteSpeed: 30,
+                delay: 100,
+              }}
+            />
+          </GradientTypography>
         </Box>
 
         <SectionBox component={Paper} elevation={2}>
@@ -146,20 +148,17 @@ const Pawoto = () => {
           <Typography variant="body1" paragraph>
             Và đó là "<Keyword>Pawoto</Keyword>" – một cái tên không chỉ đơn thuần là một nhãn hiệu. Đó là sự kết hợp của nghệ thuật, sự tỉ mỉ, và một trái tim luôn hướng về <Keyword>môi trường</Keyword>.
           </Typography>
-          <Fade bottom>
             <Typography
               variant="h6"
               align="center"
               fontStyle="italic"
               sx={{ color: "#FB8C00", mt: 3 }}
             >
-                "Với Pawoto, mỗi chiếc túi tote là một câu chuyện được kể qua những mảnh ghép đầy màu
-                sắc”
+              "Với Pawoto, mỗi chiếc túi tote là một câu chuyện được kể qua những mảnh ghép đầy màu sắc”
             </Typography>
-          </Fade>
-          <ImageBox2>
-            <img
-              src="image2.png"
+            <ImageBox2>
+              <img
+                src="image2.png"
               alt="Brand Story Image"
               style={{ maxWidth: "250px", margin: "10px" }}
             />

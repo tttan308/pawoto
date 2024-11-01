@@ -20,7 +20,7 @@ import { Link } from "react-router-dom";
 import { useCart } from "context/CartContext";
 import { useUser } from "context/UserContext";
 import { useTheme, keyframes, styled } from "@mui/material/styles";
-import Typical from "react-typical";
+import Typewriter from "typewriter-effect";
 
 // Keyframe animation for gradient text effect
 const gradientAnimation = keyframes`
@@ -68,7 +68,6 @@ const Nav = () => {
   const handleMenuClose = () => setAnchorEl(null);
   const toggleDrawer = (open) => () => setDrawerOpen(open);
 
-  // Define menu items with paths and labels
   const menuItems = [
     { label: "Trang chủ", path: "/about" },
     { label: "Sản phẩm", path: "/products" },
@@ -81,7 +80,13 @@ const Nav = () => {
     <AppBar position="fixed" color="default" sx={{ boxShadow: 1 }}>
       <Toolbar sx={{ justifyContent: "space-between" }}>
         <GradientText variant="h6" component={Link} to="/" sx={{ textDecoration: "none" }}>
-          <Typical steps={["Pawoto", 2000]} loop={1} wrapper="span" />
+          <Typography
+            variant="h6"
+            component="span"
+            sx={{ fontWeight: "bold", fontSize: "1.5rem", color: "transparent" }}
+          >
+            Pawoto
+          </Typography>
         </GradientText>
 
         {!isMobile && (

@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Typography, Box, Paper } from "@mui/material";
 import { styled, keyframes } from "@mui/system";
 import Layout from "layout/Layout";
-import Typical from "react-typical";
+import Typewriter from "typewriter-effect";
 
 // Keyframes for gradient animation on title
 const gradientAnimation = keyframes`
@@ -10,17 +10,16 @@ const gradientAnimation = keyframes`
   100% { background-position: 100% 50%; }
 `;
 
-// Styled component for title text with animated gradient effect
-const GradientTitle = styled("span")({
-  background: "linear-gradient(90deg, rgba(255,183,77,1), rgba(255,138,101,1), rgba(255,183,77,1))",
+const GradientTypography = styled(Typography)({
+  background: "linear-gradient(90deg, rgba(255,138,0,1), rgba(230,81,0,1), rgba(255,138,0,1))",
   backgroundSize: "200% 200%",
   WebkitBackgroundClip: "text",
   WebkitTextFillColor: "transparent",
   animation: `${gradientAnimation} 3s ease infinite`,
   fontWeight: "bold",
-  fontSize: "1.8rem",
-  display: "inline-block",
+  textAlign: "center",
 });
+
 
 const SectionBox = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(4),
@@ -47,11 +46,18 @@ const BlogPage = () => {
     <Layout title="Blog">
       <Container maxWidth="md">
         <SectionBox>
-          <Typography variant="h4" align="center" gutterBottom>
-            <GradientTitle>
-              <Typical steps={["Giải Cứu Những Người Bạn Cũ: Chuyện Từ Vải Vụn Đến Túi Tote Độc Đáo", 2000]} loop={1} wrapper="span" />
-            </GradientTitle>
-          </Typography>
+          <GradientTypography variant="h4" gutterBottom>
+            <Typewriter
+              options={{
+                strings: ["Giải Cứu Những Người Bạn Cũ: Chuyện Từ Vải Vụn Đến Túi Tote Độc Đáo"],
+                autoStart: true,
+                loop: true,
+                typeSpeed: 50,
+                deleteSpeed: 30,
+                delay: 75,
+              }}
+            />
+          </GradientTypography>
           <Typography variant="body1" paragraph>
             Bạn có biết rằng trong tủ quần áo của mình có bao nhiêu <Highlight>“người bạn cũ”</Highlight> đang chờ được giải cứu? Có những chiếc áo, chiếc quần đã một thời làm bạn say mê nhưng giờ đã bị lãng quên, hay thậm chí, chúng chỉ còn là những <Highlight>mảnh vải vụn</Highlight>. Nhưng đừng vội quẳng chúng vào thùng rác! Thay vào đó, hãy biến chúng thành những <Highlight>chiếc túi tote độc đáo</Highlight>!
           </Typography>

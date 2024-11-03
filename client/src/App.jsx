@@ -16,7 +16,7 @@ import {
   Pawoto,
   EmotionStation,
   Home,
-  Blog
+  Blog,
 } from "pages";
 import { Suspense } from "react";
 import { Toaster } from "react-hot-toast";

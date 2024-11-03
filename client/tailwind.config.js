@@ -8,7 +8,11 @@ module.exports = {
     "node_modules/@windmill/react-ui/dist/index.js",
   ],
   theme: {
-    extend: {},
+    extend: {
+      height: {
+        192: "48rem",
+      },
+    },
   },
   plugins: [],
 };

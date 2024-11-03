@@ -50,11 +50,11 @@ const Home = () => {
               url="home3.mp4"
               playing={isPlaying}
               controls
-              light="image1.png"  
+              light="image1.png"
               onClickPreview={() => setIsPlaying(true)}
               width="100%"
               height="100%"
-              style={{ aspectRatio: "16/9" }} 
+              style={{ aspectRatio: "16/9" }}
             />
           </VideoContainer>
         </CenteredBox>

@@ -6,7 +6,6 @@ import {
   Badge,
   Menu,
   MenuItem,
-  Typography,
   Drawer,
   List,
   ListItem,
@@ -16,45 +15,10 @@ import {
   Box,
 } from "@mui/material";
 import { ShoppingCart, AccountCircle, Logout, Login, Menu as MenuIcon } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useCart } from "context/CartContext";
 import { useUser } from "context/UserContext";
-import { useTheme, keyframes, styled } from "@mui/material/styles";
-import Typewriter from "typewriter-effect";
-
-// Keyframe animation for gradient text effect
-const gradientAnimation = keyframes`
-  0% { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
-`;
-
-// Styled component for the animated gradient text with a darker orange gradient
-const GradientText = styled(Typography)({
-  background: "linear-gradient(90deg, rgba(255,138,0,1), rgba(230,81,0,1), rgba(255,138,0,1))",
-  backgroundSize: "200% 200%",
-  WebkitBackgroundClip: "text",
-  WebkitTextFillColor: "transparent",
-  animation: `${gradientAnimation} 3s ease infinite`,
-  fontWeight: "bold",
-  position: "relative",
-  textDecoration: "none",
-  "&::after": {
-    content: '""',
-    position: "absolute",
-    width: "100%",
-    height: "2px",
-    bottom: -2,
-    left: 0,
-    backgroundColor: "#FF6D00",
-    transform: "scaleX(0)",
-    transformOrigin: "bottom right",
-    transition: "transform 0.3s ease-out",
-  },
-  "&:hover::after": {
-    transform: "scaleX(1)",
-    transformOrigin: "bottom left",
-  },
-});
+import { useTheme, keyframes } from "@mui/material/styles";
 
 const Nav = () => {
   const { cartTotal } = useCart();
@@ -63,6 +27,7 @@ const Nav = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const location = useLocation();
 
   const handleMenuOpen = (event) => setAnchorEl(event.currentTarget);
   const handleMenuClose = () => setAnchorEl(null);
@@ -79,15 +44,13 @@ const Nav = () => {
   return (
     <AppBar position="fixed" color="default" sx={{ boxShadow: 1 }}>
       <Toolbar sx={{ justifyContent: "space-between" }}>
-        <GradientText variant="h6" component={Link} to="/" sx={{ textDecoration: "none" }}>
-          <Typography
-            variant="h6"
-            component="span"
-            sx={{ fontWeight: "bold", fontSize: "1.5rem", color: "transparent" }}
-          >
-            Pawoto
-          </Typography>
-        </GradientText>
+        <Box
+          component={Link}
+          to="/"
+          sx={{ display: "flex", alignItems: "center", textDecoration: "none" }}
+        >
+          <img src="logo.png" alt="Logo" style={{ height: 80, marginRight: 10 }} />
+        </Box>
 
         {!isMobile && (
           <Box sx={{ display: "flex", gap: 3 }}>
@@ -108,8 +71,8 @@ const Nav = () => {
                     bottom: 0,
                     left: 0,
                     backgroundColor: "#FFA726",
-                    transform: "scaleX(0)",
-                    transformOrigin: "bottom right",
+                    transform: location.pathname === item.path ? "scaleX(1)" : "scaleX(0)",
+                    transformOrigin: "bottom left",
                     transition: "transform 0.3s ease-out",
                   },
                   "&:hover::after": {
@@ -124,7 +87,6 @@ const Nav = () => {
           </Box>
         )}
 
-        {/* Right-side Items */}
         <div>
           {!isLoggedIn ? (
             <>
@@ -179,7 +141,6 @@ const Nav = () => {
             </>
           )}
 
-          {/* Drawer Toggle for Mobile Menu */}
           {isMobile && (
             <IconButton
               edge="end"
@@ -193,7 +154,6 @@ const Nav = () => {
           )}
         </div>
 
-        {/* Drawer for Mobile Menu */}
         <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer(false)}>
           <List>
             {menuItems.map((item, index) => (

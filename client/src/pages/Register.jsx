@@ -167,7 +167,14 @@ const Register = () => {
               </HelperText>
             )}
           </div>
-          <Button type="submit" className="mt-4">
+          <Button
+            type="submit"
+            className="mt-4 hover:bg-orange-600"
+            style={{
+              backgroundColor: "#FFA500", // Màu cam
+              color: "#fff", // Màu chữ trắng
+            }}
+          >
             {isLoading ? (
               <PulseLoader color={"#0a138b"} size={10} loading={isLoading} />
             ) : (

@@ -75,7 +75,7 @@ const Login = () => {
                 // eslint-disable-next-line no-useless-escape
                 pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
               })}
-              placeholder="Enter a valid email"
+              placeholder="Nhập email của bạn"
             />
           </div>
           {errors?.email && errors?.email.type === "required" && (
@@ -97,6 +97,7 @@ const Login = () => {
               type="password"
               name="password"
               {...register("password", { required: true })}
+              placeholder="********"
             />
           </div>
           {errors?.password && (
@@ -112,7 +113,15 @@ const Login = () => {
           <div className="mt-4">
             <ForgotPasswordModal />
           </div>
-          <Button type="submit" disabled={isLoading}>
+          <Button 
+            type="submit"
+            disabled={isLoading}
+            style={{
+              backgroundColor: "#FFA500", // Màu cam
+              color: "#fff", // Màu chữ trắng
+            }}
+            className="hover:bg-orange-600"
+          >
             {isLoading ? <PulseLoader color={"#0a138b"} size={10} loading /> : "Đăng nhập"}
           </Button>
           {/* <Button

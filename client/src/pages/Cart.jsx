@@ -21,11 +21,19 @@ const Cart = () => {
   if (cartData?.items?.length === 0) {
     return (
       <Layout title="Cart" loading={isLoading}>
-        <h1 className="my-10 text-center text-4xl font-semibold">Shopping Cart</h1>
+        <h1 className="my-10 text-center text-4xl font-semibold">Giỏ hàng</h1>
         <div className="h-full flex flex-col justify-center items-center">
           <ShoppingCart size={150} />
-          <p>Giỏ hàng trống</p>
-          <Button tag={Link} to="/products">
+          <p className="mt-4">Giỏ hàng trống</p>
+          <Button
+            tag={Link}
+            to="/products"
+            className="mt-4 hover:bg-orange-600"
+            style={{
+              backgroundColor: "#FFA500", // Màu cam
+              color: "#fff", // Màu chữ trắng
+            }}
+          >
             Tiếp tục mua hàng
           </Button>
         </div>

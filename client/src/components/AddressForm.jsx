@@ -23,19 +23,19 @@ const PaymentForm = ({ next }) => {
 
   return (
     <div className="w-full">
-      <h1 className="text-3xl text-center mb-4 font-semibold">Address Details</h1>
+      <h1 className="text-3xl text-center mb-4 font-semibold">Địa chỉ chi tiết</h1>
       <form
         className="border p-4 border-black-4 w-full md:w-1/2 mx-auto"
         onSubmit={handleSubmit((data) => next(data))}
       >
         <Label className="block text-grey-darker text-sm font-bold mb-4">
-          <span>Fullname</span>
+          <span>Họ và tên</span>
           <Input
             disabled
             type="text"
             className="shadow appearance-none rounded w-full text-grey-darker mt-2 px-2 py-2 border focus:outline-none"
             name="fullname"
-            {...register("fullname", { required: "Required" })}
+            {...register("fullname", { required: "Bắt buộc" })}
           />
           {errors.fullname && <HelperText valid={false}>{errors.fullname.message}</HelperText>}
         </Label>
@@ -46,21 +46,21 @@ const PaymentForm = ({ next }) => {
             className="shadow appearance-none rounded w-full text-grey-darker mt-2 px-2 py-2 border focus:outline-none"
             type="text"
             name="email"
-            {...register("email", { required: "Required" })}
+            {...register("email", { required: "Bắt buộc" })}
           />
           {errors.email && <HelperText valid={false}>{errors.email.message}</HelperText>}
         </Label>
         <Label className="block text-grey-darker text-sm font-bold mb-4">
-          <span>Address</span>
+          <span>Địa chỉ</span>
           <Input
             className="shadow appearance-none rounded w-full text-grey-darker mt-2 px-2 py-2 border focus:outline-none"
             type="text"
             name="address"
-            {...register("address", { required: "Required" })}
+            {...register("address", { required: "Bắt buộc" })}
           />
           {errors.address && <HelperText valid={false}>{errors.address.message}</HelperText>}
         </Label>
-        <Label className="block text-grey-darker text-sm font-bold mb-4">
+        {/* <Label className="block text-grey-darker text-sm font-bold mb-4">
           <span>Country</span>
           <Input
             className="shadow appearance-none rounded w-full text-grey-darker mt-2 px-2 py-2 border focus:outline-none"
@@ -69,33 +69,33 @@ const PaymentForm = ({ next }) => {
             {...register("country", { required: "Required" })}
           />
           {errors.country && <HelperText valid={false}>{errors.country.message}</HelperText>}
-        </Label>
+        </Label> */}
         <Label className="block text-grey-darker text-sm font-bold mb-4">
-          <span>State/Region</span>
+          <span>Quận/Huyện</span>
           <Input
             className="shadow appearance-none rounded w-full text-grey-darker mt-2 px-2 py-2 border focus:outline-none"
             type="text"
             name="state"
-            {...register("state", { required: "Required" })}
+            {...register("state", { required: "Bắt buộc" })}
           />
           {errors.state && <HelperText valid={false}>{errors.state.message}</HelperText>}
         </Label>
         <Label className="block text-grey-darker text-sm font-bold mb-4">
-          <span>City</span>
+          <span>Thành phố</span>
           <Input
             className="shadow appearance-none rounded w-full text-grey-darker mt-2 px-2 py-2 border focus:outline-none"
             type="text"
             name="city"
-            {...register("city", { required: "Required" })}
+            {...register("city", { required: "Bắt buộc" })}
           />
           {errors.city && <HelperText valid={false}>{errors.city.message}</HelperText>}
         </Label>
         <div className="flex justify-between">
           <Button tag={Link} to="/cart" layout="outline" size="small">
-            Back to cart
+            Quay lại
           </Button>
-          <Button type="submit" size="small">
-            Proceed
+          <Button type="submit" size="small" className="bg-orange-500 hover:bg-orange-700">
+            Tiếp tục
           </Button>
         </div>
       </form>

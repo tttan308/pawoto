@@ -55,11 +55,11 @@ const ForgotPasswordModal = () => {
           onClick={() => setIsOpen(!isOpen)}
           className="mb-1 text-sm text-purple-700 cursor-pointer"
         >
-          Forgot password?
+          Quên mật khẩu?
         </span>
         <Modal isOpen={isOpen} onClose={toggleModal}>
           <form onSubmit={handleSubmit(onSubmitReset)}>
-            <ModalHeader>Forgot Password</ModalHeader>
+            <ModalHeader>Quên mật khẩu?</ModalHeader>
             <ModalBody>
               <Label>
                 <span className="font-semibold">Email</span>

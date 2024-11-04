@@ -58,15 +58,16 @@ const Cart = () => {
           </TableBody>
         </Table>
         <TableFooter className="flex flex-col justify-end items-end">
-          <div className="mb-2">Total: {formatCurrency(cartSubtotal)}</div>
+          <div className="mb-2">Tổng: {formatCurrency(cartSubtotal)}</div>
           <Button
             tag={Link}
             to={"/cart/checkout"}
             state={{
               fromCartPage: true,
             }}
+            className="bg-orange-500 hover:bg-orange-600"
           >
-            Checkout
+            Tiến hành thanh toán
           </Button>
         </TableFooter>
       </TableContainer>

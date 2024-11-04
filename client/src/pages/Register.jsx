@@ -35,7 +35,7 @@ const Register = () => {
       })
         .then(({ data }) => {
           setError("");
-          toast.success("Account created successfully.");
+          toast.success("Tạo tài khoản thành công");
           setTimeout(() => {
             setUserState(data);
             setIsLoading(!isLoading);
@@ -46,7 +46,7 @@ const Register = () => {
           setError(response.data.message);
         });
     } else {
-      setError("Password doesn't match ");
+      setError("Mật khẩu không khớp");
     }
   };
 
@@ -54,16 +54,16 @@ const Register = () => {
     return <Navigate to={state?.from || "/"} />;
   }
   return (
-    <Layout title="Create account">
+    <Layout title="Tạo tài khoản">
       <div className="flex items-center justify-center mx-auto mt-20 ">
         <form
           className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col w-full md:w-1/2 mx-2"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <h1 className="text-center text-4xl">Create Account</h1>
+          <h1 className="text-center text-4xl">Tạo tài khoản</h1>
           <div className="mt-4">
             <Label className="block text-grey-darker text-sm font-bold mb-2">
-              <span>Username</span>
+              <span>Tên người dùng</span>
             </Label>
             <Input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker"
@@ -72,9 +72,9 @@ const Register = () => {
               {...register("username", {
                 minLength: {
                   value: 4,
-                  message: "Username must be greater than 3 characters",
+                  message: "Tên người dùng phải dài hơn 3 ký tự",
                 },
-                required: "Username is required",
+                required: "Tên người dùng là bắt buộc",
               })}
             />
           </div>
@@ -85,17 +85,17 @@ const Register = () => {
           )}
           <div className="mt-4">
             <Label className="block text-grey-darker text-sm font-bold mb-2">
-              <span>Fullname</span>
+              <span>Họ tên</span>
             </Label>
             <Input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker"
               type="text"
               name="name"
               {...register("name", {
-                required: "Name cannot be empty",
+                required: "Họ tên là bắt buộc",
                 minLength: {
                   value: 6,
-                  message: "Name must be greater than 5 characters",
+                  message: "Họ tên phải dài hơn 5 ký tự",
                 },
               })}
             />
@@ -114,11 +114,10 @@ const Register = () => {
               type="email"
               name="email"
               {...register("email", {
-                required: "Email required",
+                required: "Email là bắt buộc",
                 pattern: {
-                  // eslint-disable-next-line no-useless-escape
                   value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-                  message: "Email not valid",
+                  message: "Email không hợp lệ",
                 },
               })}
             />
@@ -130,17 +129,17 @@ const Register = () => {
           )}
           <div className="mt-4">
             <Label className="block text-grey-darker text-sm font-bold mb-2">
-              <span>Password</span>
+              <span>Mật khẩu</span>
             </Label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker"
               type="password"
               name="password"
               {...register("password", {
-                required: "Password required",
+                required: "Mật khẩu là bắt buộc",
                 minLength: {
                   value: 6,
-                  message: "Password must be greater than 5 characters",
+                  message: "Mật khẩu phải dài hơn 5 ký tự",
                 },
               })}
             />
@@ -152,14 +151,14 @@ const Register = () => {
           )}
           <div className="mt-4">
             <Label className="block text-grey-darker text-sm font-bold mb-2">
-              <span>Confirm Password</span>
+              <span>Xác nhận mật khẩu</span>
             </Label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker"
               type="password"
               name="password2"
               {...register("password2", {
-                validate: (value) => value === password.current || "Passwords do not match",
+                validate: (value) => value === password.current || "Mật khẩu không khớp",
               })}
             />
             {errors.password2 && (
@@ -172,7 +171,7 @@ const Register = () => {
             {isLoading ? (
               <PulseLoader color={"#0a138b"} size={10} loading={isLoading} />
             ) : (
-              "Create Account"
+              "Tạo tài khoản"
             )}
           </Button>
           {error && (
@@ -181,9 +180,9 @@ const Register = () => {
             </HelperText>
           )}
           <p className="text-sm mt-4">
-            Have an account?{" "}
+            Đã có tài khoản?{" "}
             <Link to="/login" className="font-bold">
-              Login
+              Đăng nhập
             </Link>
           </p>
         </form>

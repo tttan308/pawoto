@@ -28,6 +28,29 @@ const motivationalMessages = {
   calm: "Giữ mãi sự bình yên và thư thái này nhé! Thật tuyệt khi bạn cảm thấy thoải mái như vậy!",
 };
 
+const GiftButton = styled(Button)(({ theme }) => ({
+  backgroundColor: "#FFB74D",
+  color: "#FFFFFF",
+  "&:hover": {
+    backgroundColor: "#FFA726",
+  },
+  animation: "pulse 1.5s infinite", // Gọi animation `pulse`
+  "@keyframes pulse": {
+    "0%": {
+      transform: "scale(1)",
+      boxShadow: "0 0 0 0 rgba(255, 183, 77, 0.7)",
+    },
+    "70%": {
+      transform: "scale(1.05)", // Phóng to nhẹ
+      boxShadow: "0 0 10px 10px rgba(255, 183, 77, 0)",
+    },
+    "100%": {
+      transform: "scale(1)",
+      boxShadow: "0 0 0 0 rgba(255, 183, 77, 0)",
+    },
+  },
+}));
+
 let soundInstance;
 
 const EmotionStation = () => {
@@ -99,40 +122,40 @@ const EmotionStation = () => {
         <Dialog open={openDialog} disableEscapeKeyDown>
           <DialogTitle>Nhập mã truy cập</DialogTitle> {/* Màu cam cho tiêu đề */}
           <DialogContent>
-  <TextField
-    autoFocus
-    margin="dense"
-    label="Mã truy cập"
-    type="password"
-    fullWidth
-    variant="outlined"
-    value={inputCode}
-    onChange={(e) => setInputCode(e.target.value)}
-    error={!!errorMessage} // Hiển thị viền đỏ khi có lỗi
-    helperText={errorMessage} // Hiển thị thông báo lỗi bên dưới
-    sx={{
-      "& .MuiOutlinedInput-root": {
-        "& fieldset": {
-          borderColor: "#FFB74D", // Màu cam cho viền TextField
-        },
-        "&:hover fieldset": {
-          borderColor: "#FFA726", // Màu cam đậm khi hover
-        },
-        "&.Mui-focused fieldset": {
-          borderColor: "#FB8C00", // Màu cam đậm khi focus
-        },
-      },
-      "& .MuiInputLabel-root": {
-        color: "#FFB74D", // Màu cam cho label khi bình thường
-      },
-      "& .MuiInputLabel-root.Mui-focused": {
-        color: "#FB8C00", // Màu cam đậm cho label khi focus
-      },
-      "& .MuiFormHelperText-root": {
-        color: "#FFB74D", // Màu cam cho helper text (thông báo lỗi)
-      },
-    }}
-  />
+            <TextField
+              autoFocus
+              margin="dense"
+              label="Mã truy cập"
+              type="password"
+              fullWidth
+              variant="outlined"
+              value={inputCode}
+              onChange={(e) => setInputCode(e.target.value)}
+              error={!!errorMessage} // Hiển thị viền đỏ khi có lỗi
+              helperText={errorMessage} // Hiển thị thông báo lỗi bên dưới
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: "#FFB74D", // Màu cam cho viền TextField
+                  },
+                  "&:hover fieldset": {
+                    borderColor: "#FFA726", // Màu cam đậm khi hover
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "#FB8C00", // Màu cam đậm khi focus
+                  },
+                },
+                "& .MuiInputLabel-root": {
+                  color: "#FFB74D", // Màu cam cho label khi bình thường
+                },
+                "& .MuiInputLabel-root.Mui-focused": {
+                  color: "#FB8C00", // Màu cam đậm cho label khi focus
+                },
+                "& .MuiFormHelperText-root": {
+                  color: "#FFB74D", // Màu cam cho helper text (thông báo lỗi)
+                },
+              }}
+            />
         </DialogContent>
 
           <DialogActions>
@@ -203,7 +226,7 @@ const EmotionStation = () => {
                     <span role="img" aria-label="happy" style={{ fontSize: "1.5rem", marginRight: "8px" }}>
                       😊
                     </span>
-                    A. Vui như nhặt được túi Pawoto độc nhất – Hôm nay mình cực kỳ vui, kiểu như vừa tìm được một chiếc túi hiếm mà không ai có!
+                    Vui như nhặt được túi Pawoto độc nhất – Hôm nay mình cực kỳ vui, kiểu như vừa tìm được một chiếc túi hiếm mà không ai có!
                   </Typography>
                 </OptionBox>
 
@@ -224,7 +247,7 @@ const EmotionStation = () => {
                     <span role="img" aria-label="sad" style={{ fontSize: "1.5rem", marginRight: "8px" }}>
                       😢
                     </span>
-                    B. Buồn như túi Pawoto chưa tìm được chủ – Tâm trạng có chút buồn, giống như một chiếc túi vẫn đang nằm yên chờ đợi người đến mang về.
+                      Buồn như túi Pawoto chưa tìm được chủ – Tâm trạng có chút buồn, giống như một chiếc túi vẫn đang nằm yên chờ đợi người đến mang về.
                   </Typography>
                 </OptionBox>
 
@@ -245,7 +268,7 @@ const EmotionStation = () => {
                     <span role="img" aria-label="calm" style={{ fontSize: "1.5rem", marginRight: "8px" }}>
                       😌
                     </span>
-                    C. Bình yên như túi Pawoto trên vai – Hôm nay mình thấy thật nhẹ nhàng và thư thái, như đang đeo một chiếc túi thoải mái trên vai, chẳng có gì phải lo lắng.
+                    Bình yên như túi Pawoto trên vai – Hôm nay mình thấy thật nhẹ nhàng và thư thái, như đang đeo một chiếc túi thoải mái trên vai, chẳng có gì phải lo lắng.
                   </Typography>
                 </OptionBox>
               </Box>
@@ -274,15 +297,7 @@ const EmotionStation = () => {
                   />
                 </ImageBox>
 
-                {!showGift && (
-                  <Button
-                    variant="contained"
-                    sx={{ backgroundColor: "#FFB74D", "&:hover": { backgroundColor: "#FFA726" } }}
-                    onClick={handleGiftClick}
-                  >
-                    Nhận quà từ Pawoto
-                  </Button>
-                )}
+                {!showGift && <GiftButton onClick={handleGiftClick}>Nhận quà từ Pawoto</GiftButton>}
               </Box>
             )}
 

@@ -4,22 +4,31 @@ import { formatCurrency } from "helpers/formatCurrency";
 import { useState } from "react";
 import PulseLoader from "react-spinners/PulseLoader";
 import OrderSummary from "./OrderSummary";
+import axios from "../api/axios.config";
 
 const PaymentForm = ({ previousStep, addressData }) => {
   const { cartSubtotal, cartData, setCartData } = useCart();
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsProcessing(true);
 
-    // Simulate successful payment
-    setTimeout(() => {
+    try {
+      await axios.post("orders/create", {
+        cartId: cartData.cart_id, // Lấy cart_id từ cartData
+        amount: cartSubtotal, // Tổng tiền thanh toán
+        itemTotal: cartData.items.length, // Số lượng sản phẩm trong giỏ hàng
+      });
+
       setCartData({ ...cartData, items: [] });
-      setIsProcessing(false);
       setPaymentSuccess(true);
-    }, 1000); // Short delay to mimic processing
+    } catch (error) {
+      console.error("Lỗi khi tạo đơn hàng:", error);
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   return (

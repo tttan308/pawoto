@@ -4,17 +4,23 @@ const createOrderDb = async ({
   cartId,
   amount,
   itemTotal,
-  userId,
-  ref,
-  paymentMethod,
+  userId = "",
+  ref = "",
+  paymentMethod = "",
 }) => {
-  // create an order
+  if (userId === "") {
+    const { rows: user } = await pool.query(
+      "SELECT user_id from cart where cart_id = $1",
+      [cartId]
+    );
+    userId = user[0].user_id;
+  }
+
   const { rows: order } = await pool.query(
-    "INSERT INTO orders(user_id, status, amount, total, ref, payment_method) VALUES($1, 'complete', $2, $3, $4, $5) returning *",
+    "INSERT INTO orders(user_id, status, amount, total, ref, payment_method) VALUES($1, 'Chờ xác nhận', $2, $3, $4, $5) returning *",
     [userId, amount, itemTotal, ref, paymentMethod]
   );
 
-  // copy cart items from the current cart_item table into order_item table
   await pool.query(
     `
       INSERT INTO order_item(order_id,product_id, quantity) 

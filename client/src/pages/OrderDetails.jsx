@@ -17,31 +17,40 @@ const OrderDetails = () => {
 
   return (
     <Layout>
-      <div className="my-4">
-        <h1 className="font-bold text-2xl">Order Details</h1>
-        <p>Order no: #{state.order.order_id}</p>
-        <p>{`${state.order.total || "Not available"} items`}</p>
-        <p>
-          Status: <Badge type="success">{state.order.status}</Badge>
-        </p>
-        <p>Total Amount: {formatCurrency(state.order.amount)}</p>
-        <p>Placed on: {format(parseISO(state.order.date), "d MMM, yyyy")}</p>
-        <div className="border-t-2">
-          <h1 className="font-bold text-xl">Items in your order</h1>
+      <div className="my-8 px-4 md:px-10 lg:px-20">
+        <h1 className="font-bold text-3xl text-center mb-6">Chi Tiết Đơn Hàng</h1>
+        <div className="bg-gray-100 rounded-lg p-4 shadow-md mb-8">
+          <p className="text-lg font-semibold">Mã Đơn Hàng: #{state.order.order_id}</p>
+          <p className="text-lg">Số lượng: {state.order.total || "Không có thông tin"} sản phẩm</p>
+          <p className="text-lg">
+            Trạng thái:{" "}
+            <Badge type="success" className="text-white bg-green-500 px-2 py-1 rounded">
+              {state.order.status === "complete" ? "Hoàn tất" : "Đang xử lý"}
+            </Badge>
+          </p>
+          <p className="text-lg font-semibold">Tổng Tiền: {formatCurrency(state.order.amount)}</p>
+          <p className="text-lg">
+            Ngày đặt hàng: {format(parseISO(state.order.date), "d MMM, yyyy")}
+          </p>
+        </div>
+
+        <h2 className="font-bold text-2xl mb-4">Danh Sách Sản Phẩm</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {items?.map((item) => (
-            <Card key={item.product_id} className="flex my-4 p-2 md:flex-row flex-col">
+            <Card key={item.product_id} className="flex flex-col items-center p-4 shadow-md">
               <img
-                className="sm:w-full md:w-1/2 lg:w-1/3 object-contain md:object-cover"
+                className="w-full h-48 object-cover rounded-md mb-4"
                 loading="lazy"
                 decoding="async"
                 src={item.image_url}
                 alt={item.name}
               />
-              <CardBody>
-                <h1 className="font-semibold text-gray-600">{item.name}</h1>
-                <p className="mb-2">{formatCurrency(item.price)}</p>
-                <p className="text-gray-600 dark:text-gray-400">{item.description}</p>
-                <p className="mt-2">Quantity: {item.quantity}</p>
+              <CardBody className="text-center">
+                <h1 className="font-semibold text-lg text-gray-700">{item.name}</h1>
+                <p className="text-lg font-semibold text-orange-500 my-2">
+                  {formatCurrency(item.price)}
+                </p>
+                <p className="text-gray-600">Số lượng: {item.quantity}</p>
               </CardBody>
             </Card>
           ))}

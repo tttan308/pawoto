@@ -108,7 +108,7 @@ const Footer = () => {
                   <Facebook fontSize="medium" />
                 </MuiLink>
                 <MuiLink href="https://www.tiktok.com/@pawoto.vietnam?_t=8qhhe7e0Hm3&_r=1" target="_blank" color="inherit" aria-label="TikTok">
-                  <img src="tiktok.png" alt="TikTok" width="24" height="24" />
+                  <img src="./tiktok.png" alt="TikTok" width="24" height="24" />
                 </MuiLink>
               </Box>
             </Box>

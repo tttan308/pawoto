@@ -75,7 +75,12 @@ const Footer = () => {
           {/* Company Information */}
           <Grid item xs={12} sm={6} md={3}>
             <Box sx={{ textAlign: { xs: "center", md: "left" } }}>
-              <Box component="img" src="logo.svg" alt="Company Logo" sx={{ mb: 2, width: "100%", maxWidth: 100 }} />
+              <Box
+                component="img"
+                src="/logo.svg"
+                alt="Company Logo"
+                sx={{ mb: 2, width: "100%", maxWidth: 100 }}
+              />
               <Typography variant="body1" fontWeight="bold">
                 CÔNG TY TRÁCH NHIỆM HỮU HẠN PAWOTO
               </Typography>

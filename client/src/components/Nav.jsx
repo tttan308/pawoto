@@ -49,7 +49,7 @@ const Nav = () => {
           to="/"
           sx={{ display: "flex", alignItems: "center", textDecoration: "none" }}
         >
-          <img src="logo.png" alt="Logo" style={{ height: 80, marginRight: 10 }} />
+          <img src="/logo.png" alt="Logo" style={{ height: 80, marginRight: 10 }} />
         </Box>
 
         {!isMobile && (

@@ -17,7 +17,7 @@ const createOrderDb = async ({
   }
 
   const { rows: order } = await pool.query(
-    "INSERT INTO orders(user_id, status, amount, total, ref, payment_method) VALUES($1, 'Chờ xác nhận', $2, $3, $4, $5) returning *",
+    "INSERT INTO orders(user_id, status, amount, total, ref, payment_method) VALUES($1, 'waiting', $2, $3, $4, $5) returning *",
     [userId, amount, itemTotal, ref, paymentMethod]
   );
 

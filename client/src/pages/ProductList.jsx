@@ -1,4 +1,4 @@
-import { Card, Pagination } from "@windmill/react-ui";
+import { Card, } from "@windmill/react-ui";
 import Product from "components/Product";
 import Spinner from "components/Spinner";
 import { useProduct } from "context/ProductContext";
@@ -7,10 +7,10 @@ import Layout from "layout/Layout";
 const ProductList = () => {
   const { products, setPage } = useProduct();
 
-  const handleChange = (page) => {
-    setPage(page);
-    window.scrollTo({ behavior: "smooth", top: 0 });
-  };
+  // const handleChange = (page) => {
+  //   setPage(page);
+  //   window.scrollTo({ behavior: "smooth", top: 0 });
+  // };
 
   if (!products) {
     return (
@@ -35,12 +35,12 @@ const ProductList = () => {
             </div>
           ))}
         </Card>
-        <Pagination
+        {/* <Pagination
           totalResults={20}
           resultsPerPage={12}
           onChange={handleChange}
           label="Page navigation"
-        />
+        /> */}
       </div>
     </Layout>
   );

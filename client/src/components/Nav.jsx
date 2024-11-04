@@ -1,78 +1,177 @@
-import { Button, HelperText, Checkbox } from "@windmill/react-ui";
+import React, { useState } from "react";
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Badge,
+  Menu,
+  MenuItem,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+  useMediaQuery,
+  Button,
+  Box,
+} from "@mui/material";
+import { ShoppingCart, AccountCircle, Logout, Login, Menu as MenuIcon } from "@mui/icons-material";
+import { Link, useLocation } from "react-router-dom";
 import { useCart } from "context/CartContext";
-import { formatCurrency } from "helpers/formatCurrency";
-import { useState } from "react";
-import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
-import PulseLoader from "react-spinners/PulseLoader";
-import OrderService from "services/order.service";
-import OrderSummary from "./OrderSummary";
+import { useUser } from "context/UserContext";
+import { useTheme } from "@mui/material/styles";
 
-const PaymentForm = ({ previousStep }) => {
-  const { cartSubtotal, cartTotal, cartData, setCartData } = useCart();
-  const [error, setError] = useState(null);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const navigate = useNavigate();
+const Nav = () => {
+  const { cartTotal } = useCart();
+  const { isLoggedIn, userData, logout } = useUser();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const location = useLocation();
 
-  const handleCODPayment = async () => {
-    setError(null);
-    setIsProcessing(true);
+  const handleMenuOpen = (event) => setAnchorEl(event.currentTarget);
+  const handleMenuClose = () => setAnchorEl(null);
+  const toggleDrawer = (open) => () => setDrawerOpen(open);
 
-    try {
-      await OrderService.createOrder(cartSubtotal, cartTotal, null, "COD");
-      setCartData({ ...cartData, items: [] });
-      setIsProcessing(false);
-      navigate("/cart/success", {
-        state: {
-          fromPaymentPage: true,
-        },
-      });
-    } catch (error) {
-      setIsProcessing(false);
-      setError("Đã xảy ra lỗi khi đặt hàng. Vui lòng thử lại.");
-    }
-  };
+  const menuItems = [
+    { label: "Trang chủ", path: "/about" },
+    { label: "Sản phẩm", path: "/products" },
+    { label: "Pawoto", path: "/pawoto" },
+    { label: "Blog xanh", path: "/blog" },
+    { label: "Trạm cảm xúc", path: "/emotion-station" },
+  ];
 
   return (
-    <div className="w-full md:w-1/2">
-      <h1 className="text-3xl font-semibold text-center mb-2">Thanh toán</h1>
-      <OrderSummary />
-      
-      <h1 className="font-medium text-2xl mt-4">Thanh toán khi nhận hàng</h1>
-      <div className="flex items-center mt-2">
-        <Checkbox checked={true} disabled />
-        <span className="ml-2 text-gray-600">Thanh toán khi nhận hàng (COD)</span>
-      </div>
-
-      {error && (
-        <HelperText valid={false} className="mt-2 text-red-600">
-          {error}
-        </HelperText>
-      )}
-      
-      <div className="flex justify-between py-4">
-        <Button onClick={previousStep} layout="outline" size="small">
-          Quay lại
-        </Button>
-        <Button
-          onClick={handleCODPayment}
-          disabled={isProcessing}
-          size="small"
-          style={{ backgroundColor: "#FFA500", color: "#fff" }}
+    <AppBar position="fixed" color="default" sx={{ boxShadow: 1 }}>
+      <Toolbar sx={{ justifyContent: "space-between" }}>
+        <Box
+          component={Link}
+          to="/"
+          sx={{ display: "flex", alignItems: "center", textDecoration: "none" }}
         >
-          {isProcessing ? (
-            <PulseLoader size={10} color={"#fff"} />
+          <img src="logo.png" alt="Logo" style={{ height: 80, marginRight: 10 }} />
+        </Box>
+
+        {!isMobile && (
+          <Box sx={{ display: "flex", gap: 3 }}>
+            {menuItems.map((item, index) => (
+              <Button
+                key={index}
+                component={Link}
+                to={item.path}
+                color="inherit"
+                sx={{
+                  px: 2,
+                  position: "relative",
+                  "&::after": {
+                    content: '""',
+                    position: "absolute",
+                    width: "100%",
+                    height: "2px",
+                    bottom: 0,
+                    left: 0,
+                    backgroundColor: "#FFA726",
+                    transform: location.pathname === item.path ? "scaleX(1)" : "scaleX(0)",
+                    transformOrigin: "bottom left",
+                    transition: "transform 0.3s ease-out",
+                  },
+                  "&:hover::after": {
+                    transform: "scaleX(1)",
+                    transformOrigin: "bottom left",
+                  },
+                }}
+              >
+                {item.label}
+              </Button>
+            ))}
+          </Box>
+        )}
+
+        <div>
+          {!isLoggedIn ? (
+            <>
+              <IconButton component={Link} to="/login" color="primary">
+                <Login />
+              </IconButton>
+              <IconButton component={Link} to="/cart" color="inherit">
+                <Badge badgeContent={cartTotal} color="error">
+                  <ShoppingCart />
+                </Badge>
+              </IconButton>
+            </>
           ) : (
-            `Xác nhận thanh toán ${formatCurrency(cartSubtotal)}`
+            <>
+              <IconButton component={Link} to="/cart" color="inherit">
+                <Badge badgeContent={cartTotal} color="error">
+                  <ShoppingCart />
+                </Badge>
+              </IconButton>
+              <IconButton color="inherit" onClick={handleMenuOpen}>
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleMenuClose}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+              >
+                <MenuItem disabled>{userData?.fullname}</MenuItem>
+                <MenuItem component={Link} to="/profile" onClick={handleMenuClose}>
+                  Hồ sơ
+                </MenuItem>
+                <MenuItem component={Link} to="/orders" onClick={handleMenuClose}>
+                  Đơn hàng
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    logout();
+                    handleMenuClose();
+                  }}
+                >
+                  <Logout fontSize="small" sx={{ mr: 1 }} /> Đăng xuất
+                </MenuItem>
+              </Menu>
+            </>
           )}
-        </Button>
-      </div>
-    </div>
+
+          {isMobile && (
+            <IconButton
+              edge="end"
+              color="inherit"
+              aria-label="menu"
+              onClick={toggleDrawer(true)}
+              sx={{ ml: 1 }}
+            >
+              <MenuIcon />
+            </IconButton>
+          )}
+        </div>
+
+        <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer(false)}>
+          <List>
+            {menuItems.map((item, index) => (
+              <ListItem
+                button
+                component={Link}
+                to={item.path}
+                key={index}
+                onClick={toggleDrawer(false)}
+              >
+                <ListItemText primary={item.label} />
+              </ListItem>
+            ))}
+          </List>
+        </Drawer>
+      </Toolbar>
+    </AppBar>
   );
 };
 
-PaymentForm.propTypes = {
-  previousStep: PropTypes.func.isRequired,
-};
-
-export default PaymentForm;
+export default Nav;

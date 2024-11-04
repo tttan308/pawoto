@@ -79,15 +79,23 @@ const ProductDetails = () => {
                     className="w-full h-96 object-contain rounded"
                   />
                 </div>
-                <VideoContainer>
-                  <video
-                    controls
-                    src="/tote1.mp4"
-                    className="w-auto h-auto max-w-full max-h-full object-contain rounded"
-                  >
-                    <track kind="captions" srcLang="en" src="/captions_en.vtt" label="English" />
-                  </video>
-                </VideoContainer>
+                {product?.product_id === 1 || product?.product_id === 3 ? (
+                  <VideoContainer>
+                    <video
+                      controls
+                      src={
+                        product?.product_id === 1
+                          ? "/tote1.mp4"
+                          : product?.product_id === 3
+                            ? "/tote3.mp4"
+                            : ""
+                      }
+                      className="w-auto h-auto max-w-full max-h-full object-contain rounded"
+                    >
+                      <track kind="captions" srcLang="en" src="/captions_en.vtt" label="English" />
+                    </video>
+                  </VideoContainer>
+                ) : null}
               </Carousel>
             </div>
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
@@ -115,10 +123,14 @@ const ProductDetails = () => {
                   {formatCurrency(product?.price)}
                 </span>
                 <Button
-                  className="border-0 focus:outline-none bg-indigo-500 hover:bg-indigo-600 text-white rounded"
+                  style={{
+                    backgroundColor: "#FFA500", // Màu cam
+                    color: "#fff", // Màu chữ trắng
+                  }}
+                  className="border-0 focus:outline-none hover:bg-orange-600 rounded"
                   onClick={addToCart}
                 >
-                  {isLoading ? <ClipLoader color="#FFFFFF" size={20} /> : "Add to Cart"}
+                  {isLoading ? <ClipLoader color="#FFFFFF" size={20} /> : "Thêm vào giỏ hàng"}
                 </Button>
               </div>
             </div>

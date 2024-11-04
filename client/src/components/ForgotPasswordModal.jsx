@@ -53,7 +53,7 @@ const ForgotPasswordModal = () => {
         {isOpen && <Backdrop />}
         <span
           onClick={() => setIsOpen(!isOpen)}
-          className="mb-1 text-sm text-purple-700 cursor-pointer"
+          className="mb-1 text-sm text-orange-700 cursor-pointer"
         >
           Quên mật khẩu?
         </span>

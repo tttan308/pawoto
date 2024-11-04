@@ -62,7 +62,7 @@ const ResetPassword = () => {
               <Label className="mb-4">
                 <span className="block text-gray-700 text-sm font-bold mb-2">Password</span>
                 <Input
-                  className="rounded w-full text-gray-700 focus:outline-none border px-2 py-2 focus:border-purple-600 transition duration-500"
+                  className="rounded w-full text-gray-700 focus:outline-none border px-2 py-2 focus:border-orange-600 transition duration-500"
                   type="password"
                   inputMode="password"
                   name="password"
@@ -83,7 +83,7 @@ const ResetPassword = () => {
               <Label className="mb-4">
                 <span className="block text-gray-700 text-sm font-bold mb-2">Confirm Password</span>
                 <Input
-                  className="rounded w-full text-gray-700 focus:outline-none border px-2 py-2 focus:border-purple-600 transition duration-500"
+                  className="rounded w-full text-gray-700 focus:outline-none border px-2 py-2 focus:border-orange-600 transition duration-500"
                   type="password"
                   inputMode="password"
                   name="password2"

@@ -23,7 +23,7 @@ const PaymentForm = ({ next }) => {
 
   return (
     <div className="w-full">
-      <h1 className="text-3xl text-center mb-4 font-semibold">Địa chỉ chi tiết</h1>
+      <h1 className="text-3xl text-center mb-4 font-semibold">Địa chỉ</h1>
       <form
         className="border p-4 border-black-4 w-full md:w-1/2 mx-auto"
         onSubmit={handleSubmit((data) => next(data))}
@@ -94,7 +94,15 @@ const PaymentForm = ({ next }) => {
           <Button tag={Link} to="/cart" layout="outline" size="small">
             Quay lại
           </Button>
-          <Button type="submit" size="small" className="bg-orange-500 hover:bg-orange-700">
+          <Button
+            type="submit"
+            size="small"
+            style={{
+              backgroundColor: "#FFA500", // Màu cam
+              color: "#fff", // Màu chữ trắng
+            }}
+            className="hover:bg-orange-700"
+          >
             Tiếp tục
           </Button>
         </div>

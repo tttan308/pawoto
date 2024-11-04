@@ -61,11 +61,13 @@ const Cart = () => {
           <div className="mb-2">Tổng: {formatCurrency(cartSubtotal)}</div>
           <Button
             tag={Link}
-            to={"/cart/checkout"}
-            state={{
-              fromCartPage: true,
+            to="/cart/checkout"
+            state={{ fromCartPage: true }}
+            style={{
+              backgroundColor: "#FFA500", // Màu cam
+              color: "#fff", // Màu chữ trắng
             }}
-            className="bg-orange-500 hover:bg-orange-600"
+            className="hover:bg-orange-600"
           >
             Tiến hành thanh toán
           </Button>

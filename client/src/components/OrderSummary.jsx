@@ -9,7 +9,7 @@ const OrderSummary = () => {
       {cartData?.items.map((item) => (
         <div key={item.product_id} className="flex border-b-2 py-2 space-x-2">
           <img
-            className="w-2/5"
+            className="w-20 h-20 object-cover" // Đặt kích thước cố định và object-cover
             loading="lazy"
             decoding="async"
             src={item.image_url}

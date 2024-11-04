@@ -48,8 +48,8 @@ const PaymentForm = () => {
       )}
       <div className="flex justify-between py-4">
         <Button tag={Link} to="/cart/checkout" layout="outline" size="small">
-            Quay lại
-          </Button>
+          Quay lại
+        </Button>
         <Button
           disabled={isProcessing}
           onClick={handleSubmit}

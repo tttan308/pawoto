@@ -56,7 +56,11 @@ const Product = ({ product }) => {
                 <ShoppingCart className="mr-2" />
               )
             }
-            className="mt-4 transition duration-200 ease-out lg:bg-opacity-0 group-hover:bg-opacity-100"
+            style={{
+              backgroundColor: "#FFA500",
+              color: "#fff",
+            }}
+            className="mt-4 transition duration-200 ease-out lg:bg-opacity-0 group-hover:bg-opacity-100 hover:bg-orange-600"
             onClick={(e) => addToCart(e)}
           >
             {isLoading ? null : "Add to Cart"}

@@ -5,8 +5,9 @@ import { useState } from "react";
 import PulseLoader from "react-spinners/PulseLoader";
 import OrderSummary from "./OrderSummary";
 import axios from "../api/axios.config";
+import { Link } from "react-router-dom";
 
-const PaymentForm = ({ previousStep, addressData }) => {
+const PaymentForm = () => {
   const { cartSubtotal, cartData, setCartData } = useCart();
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
@@ -17,7 +18,7 @@ const PaymentForm = ({ previousStep, addressData }) => {
 
     try {
       await axios.post("orders/create", {
-        cartId: cartData.cart_id, // Lấy cart_id từ cartData
+        cartId: cartData.cart_id ?? 2, // Lấy cart_id từ cartData
         amount: cartSubtotal, // Tổng tiền thanh toán
         itemTotal: cartData.items.length, // Số lượng sản phẩm trong giỏ hàng
       });
@@ -46,9 +47,9 @@ const PaymentForm = ({ previousStep, addressData }) => {
         </HelperText>
       )}
       <div className="flex justify-between py-4">
-        <Button onClick={previousStep} layout="outline" size="small">
-          Quay Lại
-        </Button>
+        <Button tag={Link} to="/cart/checkout" layout="outline" size="small">
+            Quay lại
+          </Button>
         <Button
           disabled={isProcessing}
           onClick={handleSubmit}

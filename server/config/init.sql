@@ -153,7 +153,7 @@ CREATE UNIQUE INDEX users_unique_lower_username_idx
     ON public.users (lower(username));
 
     -- Seed data for products table 
-INSERT INTO public.products (product_id, name, slug, price, description, image_url) VALUES (1, 'TÚI TOTE HANDMADE Mã NT11 Trắng', 'tote-1', 293000, 
+INSERT INTO public.products (product_id, name, slug, price, description, image_url) VALUES (1, 'TÚI TOTE HANDMADE Mã NT21 Trắng', 'tote-1', 293000, 
 '<p><strong>Chiếc túi tote NT21</strong> này có kích thước <strong>33x37cm</strong>, đủ rộng để đựng sách vở, laptop, ví tiền và các vật dụng cá nhân khác. Phần thân túi được ghép từ những mảnh vải hình lục giác, tạo nên một tổng thể hài hòa và bắt mắt. Các mảnh vải lục giác này được phối màu tinh tế, chủ yếu là tông màu trắng dễ dùng thêm họa tiết hoa màu hồng điểm xuyến tạo cảm giác nhẹ nhàng và nữ tính.</p>
 </br>
 <h2><strong>🍀HƯỚNG DẪN BẢO QUẢN VÀ SỬ DỤNG</strong></h2>
@@ -165,7 +165,7 @@ INSERT INTO public.products (product_id, name, slug, price, description, image_u
 </ol>', 
 '/tote1.jpg');
 
-INSERT INTO public.products (product_id, name, slug, price, description, image_url) VALUES (2, 'TÚI TOTE HANDMADE Mã NT12 Trắng', 'tote-2', 293000, 
+INSERT INTO public.products (product_id, name, slug, price, description, image_url) VALUES (2, 'TÚI TOTE HANDMADE Mã NT22 Trắng', 'tote-2', 293000, 
 '<p>Chiếc túi tote NT22 này có kích thước <strong>33x37cm</strong>, đủ rộng để đựng sách vở, laptop, ví tiền và các vật dụng cá nhân khác. Phần thân túi được ghép từ những mảnh vải hình lục giác, tạo nên một tổng thể hài hòa và bắt mắt. Các mảnh vải lục giác này được phối màu tinh tế, chủ yếu là tông màu trắng dễ dùng thêm họa tiết hoa thêu tinh tế làm nổi bật chiếc túi.</p>
 
 <h3>🍀 HƯỚNG DẪN BẢO QUẢN VÀ SỬ DỤNG</h3>

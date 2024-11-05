@@ -46,7 +46,7 @@ const createTransporter = async () => {
 
 const url =
   process.env.NODE_ENV === "production"
-    ? "https://pern-store.netlify.app"
+    ? "https://pawoto.netlify.app"
     : "http://localhost:3000";
 
 const signupMail = async (to, name) => {

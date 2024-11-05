@@ -86,8 +86,14 @@ const refreshToken = async (req, res) => {
   res.header("auth-token", tokens.token);
   res.cookie("refreshToken", tokens.refreshToken, {
     httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 ngày
   });
-  res.json(tokens);
+  res.json({
+    ...tokens,
+    expiresIn: 24 * 60 * 60, // 24 giờ tính bằng giây
+  });
 };
 
 const resetPassword = async (req, res) => {

@@ -18,24 +18,28 @@ const pool = new Pool({
 // Đường dẫn tới file init.sql
 const initFilePath = path.join(__dirname, "init.sql");
 
-// Hàm để kiểm tra và chạy init.sql nếu cần thiết
+// Hàm để xóa dữ liệu và chạy lại init.sql
 const initializeDatabase = async () => {
   try {
-    // Kiểm tra nếu bảng tồn tại (ở đây kiểm tra bảng 'users' để làm ví dụ)
-    const tableCheck = await pool.query(
-      "SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = 'users')"
-    );
+    // Xóa tất cả các bảng hiện có
+    const dropTablesQuery = `
+      DROP TABLE IF EXISTS 
+        cart_items,
+        orders,
+        order_items,
+        products,
+        users,
+        categories CASCADE;
+    `;
+    await pool.query(dropTablesQuery);
+    console.log("Đã xóa tất cả các bảng");
 
-    // Nếu bảng chưa tồn tại, chạy file init.sql
-    if (!tableCheck.rows[0].exists) {
-      const initSql = fs.readFileSync(initFilePath, "utf8");
-      await pool.query(initSql);
-      console.log("Database initialized with init.sql");
-    } else {
-      console.log("Database already initialized.");
-    }
+    // Chạy lại file init.sql
+    const initSql = fs.readFileSync(initFilePath, "utf8");
+    await pool.query(initSql);
+    console.log("Database đã được khởi tạo lại với init.sql");
   } catch (error) {
-    console.error("Error initializing database:", error);
+    console.error("Lỗi khi khởi tạo lại database:", error);
   }
 };
 

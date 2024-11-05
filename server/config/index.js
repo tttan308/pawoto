@@ -20,30 +20,40 @@ const initFilePath = path.join(__dirname, "init.sql");
 
 // Hàm để xóa dữ liệu và chạy lại init.sql
 const initializeDatabase = async () => {
+  // eslint-disable-next-line no-useless-catch
   try {
-    // Xóa tất cả các bảng hiện có
+    // Xóa tất cả các bảng hiện có theo thứ tự phù hợp với ràng buộc khóa ngoại
     const dropTablesQuery = `
-      DROP TABLE IF EXISTS 
-        cart_items,
-        orders,
-        order_items,
-        products,
-        users,
-        categories CASCADE;
+      DO $$ DECLARE
+      BEGIN
+        -- Disable triggers temporarily
+        SET CONSTRAINTS ALL DEFERRED;
+        
+        -- Drop tables in correct order
+        DROP TABLE IF EXISTS cart_items CASCADE;
+        DROP TABLE IF EXISTS order_items CASCADE;
+        DROP TABLE IF EXISTS orders CASCADE;
+        DROP TABLE IF EXISTS products CASCADE;
+        DROP TABLE IF EXISTS categories CASCADE;
+        DROP TABLE IF EXISTS users CASCADE;
+        
+        -- Re-enable triggers
+        SET CONSTRAINTS ALL IMMEDIATE;
+      END $$;
     `;
+
     await pool.query(dropTablesQuery);
-    console.log("Đã xóa tất cả các bảng");
+
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     // Chạy lại file init.sql
     const initSql = fs.readFileSync(initFilePath, "utf8");
     await pool.query(initSql);
-    console.log("Database đã được khởi tạo lại với init.sql");
   } catch (error) {
-    console.error("Lỗi khi khởi tạo lại database:", error);
+    throw error;
   }
 };
 
-// Gọi hàm initializeDatabase khi kết nối lần đầu
 initializeDatabase();
 
 module.exports = {
